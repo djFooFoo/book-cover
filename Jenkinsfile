@@ -9,6 +9,7 @@ pipeline {
       steps {
         withEnv(["HOME=${env.WORKSPACE}"]) {
           sh 'python --version'
+          sh 'ls'
         }
       }
     }
