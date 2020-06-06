@@ -5,4 +5,5 @@ A wrapper for a book service API that caches book covers. This prevents getting 
 ## Building docker image (build & run)
 
 docker container build -t book-cover .
+
 docker container run --restart unless-stopped -v $(pwd)/books:/app/books -p 10000:10000 --name book-cover -d book-cover
