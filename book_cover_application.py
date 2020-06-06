@@ -24,4 +24,4 @@ def get_book_cover(isbn: str):
 if __name__ == "__main__":
     from waitress import serve
 
-    serve(bookCoverApplication, host="0.0.0.0", port=30000)
+    serve(bookCoverApplication, host="0.0.0.0", port=10000)
