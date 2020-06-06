@@ -7,8 +7,6 @@ pipeline {
   stages {
     stage('Build') {
       steps {
-        sh 'conda env create -f environment.yml'
-        sh '. ~/.bashrc'
         sh 'conda activate book-cover'
         sh 'python --version'
         }
