@@ -9,7 +9,7 @@ pipeline {
       steps {
         sh 'python -m venv env'
         sh '. ./env/bin/activate'
-        sh 'pip install -r requirements.txt'
+        sh 'pip install -r requirements.txt --user'
         }
     }
 
