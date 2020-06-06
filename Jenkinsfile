@@ -1,15 +1,13 @@
 pipeline {
   agent {
     docker {
-        image 'continuumio/miniconda3'
+        image 'python:3.8-alpine'
     }
   }
   stages {
     stage('Build') {
       steps {
-        sh 'conda init bash'
-        sh 'conda activate book-cover'
-        sh 'python --version'
+        sh 'pip install -r requirements.txt'
         }
     }
 
