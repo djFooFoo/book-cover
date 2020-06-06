@@ -6,7 +6,7 @@ import requests
 class BookCoverApplicationTest(unittest.TestCase):
     def setUp(self) -> None:
         self.uuid = '9780062803832'
-        self.url = f"http://127.0.0.1:10000/book-cover/{self.uuid}"
+        self.url = f"http://0.0.0.0:10000/book-cover/{self.uuid}"
         self.response: requests.Response = requests.get(url=self.url)
 
     def test_returns_ok(self) -> None:
