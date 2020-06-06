@@ -4,8 +4,13 @@ pipeline {
   }
   stages {
     stage('Test') {
-      steps {
-          sh 'python -m unittest'
+      parallel {
+        stage('Static code analysis') {
+            steps { sh 'pylint *.py' }
+        }
+        stage('Unit tests') {
+            steps { sh 'python -m unittest' }
+        }
       }
     }
   }
