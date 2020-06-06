@@ -7,6 +7,7 @@ pipeline {
   stages {
     stage('Build') {
       steps {
+        sh 'echo $USER'
         sh 'conda env create -f environment.yml'
         sh 'python --version'
         }
