@@ -7,6 +7,7 @@ pipeline {
   stages {
     stage('Build') {
       steps {
+        sh 'conda init bash'
         sh 'conda activate book-cover'
         sh 'python --version'
         }
