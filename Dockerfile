@@ -4,7 +4,7 @@ WORKDIR /app
 
 # Create the environment:
 COPY . .
-RUN apt-get update && conda env create -f environment.yml
+RUN apt-get update && conda env create -f environment.yml && conda update -n base -c defaults conda && conda activate book-cover
 EXPOSE 10000
 
 # Make RUN commands use the new environment:
