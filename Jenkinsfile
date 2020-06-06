@@ -1,16 +1,11 @@
 pipeline {
   agent {
-    docker {
-        image 'python:3.8'
-    }
+    dockerfile true
   }
   stages {
     stage('Test') {
       steps {
-        withEnv(["HOME=${env.WORKSPACE}"]) {
           sh 'python --version'
-          sh 'ls'
-        }
       }
     }
   }
