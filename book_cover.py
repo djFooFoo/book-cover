@@ -9,7 +9,7 @@ class BookCover:
 
     @staticmethod
     def file_exists(isbn: str) -> bool:
-        for root, dirs, files in os.walk("books"):
+        for _, _, files in os.walk("books"):
             for filename in files:
                 if filename == f'{isbn}.jpg':
                     return True
@@ -27,5 +27,4 @@ class BookCover:
                 with open(f"books/{isbn}.jpg", "wb") as write_file:
                     write_file.write(content)
                 return content
-            else:
-                raise RuntimeError(f'No image found for the following isbn number: `{isbn}`.')
+            raise RuntimeError(f'No image found for the following isbn number: `{isbn}`.')

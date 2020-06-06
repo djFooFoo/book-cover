@@ -4,7 +4,7 @@ from unittest.mock import Mock, mock_open
 
 from mockito import when, verify
 
-from book_cover import BookCover
+import book_cover
 
 
 class ResponseStub:
@@ -15,26 +15,26 @@ class ResponseStub:
 
 class BookCoverApplicationTest(unittest.TestCase):
     def setUp(self) -> None:
-        self.requestsMock = Mock()
-        self.book_cover = BookCover(self.requestsMock)
+        self.requests_mock = Mock()
+        self.book_cover = book_cover.BookCover(self.requests_mock)
 
-    def test_retrievesBookCoverFromExternalSource(self) -> None:
+    def test_retrieves_book_cover_from_external_source(self) -> None:
         isbn = 'imaginary_isbn'
         url = f'http://covers.openlibrary.org/b/isbn/{isbn}-M.jpg?default=false'
         content = b'book content'
-        when(self.requestsMock).get(url).thenReturn(ResponseStub(code=200, content=content))
+        when(self.requests_mock).get(url).thenReturn(ResponseStub(code=200, content=content))
 
         with mock.patch('os.walk'):
             with mock.patch('builtins.open', mock_open(), create=True):
                 self.book_cover.get_by(isbn)
 
-        verify(self.requestsMock).get(url)
+        verify(self.requests_mock).get(url)
 
-    def test_writesBookCoverToBooksFolder(self) -> None:
+    def test_writes_book_cover_to_books_folder(self) -> None:
         isbn = 'imaginary_isbn'
         url = f'http://covers.openlibrary.org/b/isbn/{isbn}-M.jpg?default=false'
         content = b'book content'
-        when(self.requestsMock).get(url).thenReturn(ResponseStub(code=200, content=content))
+        when(self.requests_mock).get(url).thenReturn(ResponseStub(code=200, content=content))
 
         with mock.patch('os.walk'):
             with mock.patch('builtins.open', mock_open(), create=True) as mock_file_handle:
@@ -43,7 +43,7 @@ class BookCoverApplicationTest(unittest.TestCase):
         mock_file_handle.assert_called_with(f'books/{isbn}.jpg', 'wb')
         mock_file_handle().write.assert_called_once_with(content)
 
-    def test_prefersBookCoverFromFileSystemOverExternalResource(self) -> None:
+    def test_prefers_book_cover_from_file_system_over_external_resource(self) -> None:
         isbn = 'imaginary_isbn'
         content = b'book content'
 
@@ -54,12 +54,12 @@ class BookCoverApplicationTest(unittest.TestCase):
 
         self.assertEqual(book, content)
 
-    def test_throwsRuntimeExceptionWhenBookNotFound(self) -> None:
+    def test_throws_runtime_exception_when_book_not_found(self) -> None:
         isbn = 'imaginary_isbn'
         url = f'http://covers.openlibrary.org/b/isbn/{isbn}-M.jpg?default=false'
 
         response = ResponseStub(code=404)
-        when(self.requestsMock).get(url).thenReturn(response)
+        when(self.requests_mock).get(url).thenReturn(response)
 
         with self.assertRaises(Exception) as context:
             self.book_cover.get_by(isbn)
