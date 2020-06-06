@@ -1,9 +1,13 @@
 FROM python:3.8
 
-WORKDIR /app
+COPY requirements.txt /tmp/
 
-# Create the environment:
+RUN apt-get update && pip install -r /tmp/requirements.txt
+
+RUN useradd --create-home appuser
+WORKDIR /home/appuser
+USER appuser
+
 COPY . .
-RUN apt-get update && pip install -r requirements.txt
 EXPOSE 10000
 ENTRYPOINT [ "python", "./book_cover_application.py"]
