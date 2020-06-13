@@ -1,10 +1,8 @@
-import typing
 import os
 
 
 class BookCover:
     def __init__(self, request_library):
-        self.cache: typing.Dict[str, bytes] = {}
         self.request_library = request_library
 
     @staticmethod
