@@ -7,7 +7,7 @@ class BookCover:
 
     @staticmethod
     def file_exists(isbn: str) -> bool:
-        for _, _, files in os.walk("books"):
+        for _, _, files in os.walk("../books"):
             for filename in files:
                 if filename == f'{isbn}.jpg':
                     return True
