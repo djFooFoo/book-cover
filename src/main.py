@@ -1,27 +1,27 @@
 import base64
-
-import flask
+import fastapi
 import requests
+from fastapi import HTTPException
 
 import book_cover
 
 bookCover = book_cover.BookCover(requests)
-bookCoverApplication = flask.Flask(__name__)
+app = fastapi.FastAPI()
 
 
-@bookCoverApplication.route("/book-cover/<isbn>")
-def get_book_cover(isbn: str):
+@app.get("/book-cover/{isbn}")
+async def get_book_cover(isbn: str):
     print(f'Retrieving image via isbn `{isbn}`')
     img = None
     try:
         img = bookCover.get_by(isbn)
     except RuntimeError as error:
         print(error)
-        flask.abort(404, error)
+        raise HTTPException(status_code=404, detail=f'Image with isbn `{isbn}` not found')
     return base64.b64encode(img), 200
 
 
 if __name__ == "__main__":
-    from waitress import serve
+    import uvicorn
 
-    serve(bookCoverApplication, host="0.0.0.0", port=10000)
+    uvicorn.run(app, host="0.0.0.0", port=10000)
