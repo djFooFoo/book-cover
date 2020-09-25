@@ -1,4 +1,3 @@
-import base64
 import io
 
 import fastapi
@@ -6,9 +5,9 @@ import requests
 from fastapi import HTTPException
 from starlette.responses import StreamingResponse
 
-import book_cover
+from src.book_cover import BookCover
 
-bookCover = book_cover.BookCover(requests)
+bookCover = BookCover(requests)
 app = fastapi.FastAPI()
 
 
