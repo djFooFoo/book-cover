@@ -1,8 +1,10 @@
 import os
 
+import requests
+
 
 class BookCover:
-    def __init__(self, request_library):
+    def __init__(self, request_library=requests):
         self.request_library = request_library
 
     @staticmethod
