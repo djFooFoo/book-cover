@@ -4,7 +4,7 @@ from unittest.mock import Mock, mock_open
 
 from mockito import when, verify
 
-from src import book_cover
+import book_cover
 
 
 class ResponseStub:

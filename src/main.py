@@ -5,7 +5,7 @@ import requests
 from fastapi import HTTPException
 from starlette.responses import StreamingResponse
 
-from src.book_cover import BookCover
+from book_cover import BookCover
 
 bookCover = BookCover(requests)
 app = fastapi.FastAPI()
